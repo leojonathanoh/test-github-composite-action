@@ -1,0 +1,20 @@
+name: test-github-composite-action
+description: Test Github Composite Action
+inputs:
+  foo:
+    description: Some foo description
+    required: true
+    default: foo
+outputs:
+  bar:
+    description: Some bar description
+    value: ${{ steps.output.outputs.bar }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+    - run: ls -al
+      shell: bash
+    - run: echo "bar=123" >> $GITHUB_OUTPUT
+      id: output
+      shell: bash
